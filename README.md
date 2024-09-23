@@ -1,2 +1,13 @@
-# Iryna-Public
-The publicly available fork of the in-development Iryna project.
+# Iryna
+This project aims to develop an LLM capable of ascertaining and detecting Russian Disinformation, particularly as it pertains to the Russia v. Ukraine War in the hopes of measuring its impact on Ukrainian Migrants. Developed alongside my research partner [Iryna Zhuchenko](https://www.linkedin.com/in/iryna-zhuchenko-0a6135265/) and is a continuation of my [2023 Summer](https://github.com/adammartin13/ODU-REU) research at Old Dominion University. The information shared here is a modified fork of our internal work which we're hoping to share more of in the future.
+
+> [!IMPORTANT]
+> If you'd like to use our complete dataset or would like to collaborate on this project, feel free to reach out to me at cadamm@iastate.edu. Information pertaining to our pro-information outlets, including article data and web scrapers, are omitted from this repository.
+# Data
+Our [data](/data.csv) consists of links to articles, outlets, article titles, raw text, translated text, and a flag for if the article is disinformation. Our flag is simple: if its from a disinformation/Kremlin outlet, its disinformation. If its from our list of trusted outlets, its pro-information.
+
+Our hopes with our LLM is for the model to ascertain differences in disinformation and pro-information articles. Our data set is roughly balanced, but the pro-information articles are omitted from this dataset. We're trying out several different tokenization methods with R, more on this in future updates.
+# Query Methods
+In [Search.py](/Search.py) data is gathered from known Kremlin outlets across Google News using queries that target recent (1-2 months old) articles. This is done so with the help of [SerpAPI](https://serpapi.com/), however as Google bans more and more outlets from its news platform, active bot monitoring will be necessary to target these outlets. Operations such as removing duplicate articles or known flagged articles are automatically performed with [dataCleanup.py](/dataCleanup.py).
+# Web Scraping
+[Crawling.py](/Crawling.py) is used to pull the body text from each queried article, and while doing so we pull the title which is used to manually validate if said article is on topic. Off-topic articles are removed and their links saved to [flagged_articles.csv](/flagged_articles.csv), this way if the same article shows up again in a future query it is automatically removed. Our webcrawlers run in Selenium on a VPN with automatic cookie cleaning. While we have capabilities to run in Chrome and Edge, with custom headers on those and Firefox, these features broke once I started developing on NixOS. Potential fix for this in the future, but it's not broken so no need to as of right now.
