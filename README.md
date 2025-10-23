@@ -2,7 +2,11 @@
 This project aims to develop an LLM capable of ascertaining and detecting Russian Disinformation, particularly as it pertains to the Russia v. Ukraine War in the hopes of measuring its impact on Ukrainian Migrants. Developed alongside my research partner [Iryna Zhuchenko](https://www.linkedin.com/in/iryna-zhuchenko-0a6135265/) and is a continuation of my [2023 Summer](https://github.com/adammartin13/ODU-REU) research at Old Dominion University. The information shared here is a modified fork of our internal work which we're hoping to share more of in the future.
 
 > [!IMPORTANT]
-> If you'd like to use our complete dataset or would like to collaborate on this project, feel free to reach out to me at cadamm@iastate.edu. Information pertaining to our pro-information outlets, including article data and web scrapers, are omitted from this repository.
+> If you'd like to use my complete dataset or would like to collaborate on this project, feel free to reach out at christopheradammartin13@gmail.com. Information pertaining to our pro-information outlets, including article data and web scrapers, are omitted from this repository.
+# Accuracy
+Currently our model is able to ascertain disinformation with ~82% accuracy, more information can be found in our [metrics](/evaluation_metrics.json) file. I'm still fine-tuning the model, so this result is from out-the-box settings. Results could be prone to error.
+# Model
+I trained the [model](/model-cpu.py) with [RoBERTa](https://huggingface.co/docs/transformers/model_doc/roberta), which I found both simple to implement and incredibly effective at sequence classification. Currently runs entirely on CPU, making it platform agnostic at the cost of compute time, however I'm looking for an equally platform agnostic approach for GPU support to which I think I'll have to develop this on an alternative OS (currently NixOS).
 # Data
 Our [data](/data.csv) consists of links to articles, outlets, article titles, raw text, translated text, and a flag for if the article is disinformation. Our flag is simple: if its from a disinformation/Kremlin outlet, its disinformation. If its from our list of trusted outlets, its pro-information.
 
